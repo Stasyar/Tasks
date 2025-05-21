@@ -1,12 +1,18 @@
 import logging
+
 from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.exceptions import APIException
-from .models import Task, User
-from .serializers import TaskSerializer, UserSerializer
+from .models import Task, User, Column, Board, Sprint, Group
+from .serializers import (
+    TaskSerializer,
+    UserSerializer,
+    GroupSerializer,
+    ColumnSerializer,
+    SprintSerializer, BoardSerializer
+)
 
 logger = logging.getLogger(__name__)
-
 
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -64,3 +70,55 @@ class TaskDeleteView(generics.DestroyAPIView):
         except Exception as e:
             logger.error(f"Error during deleting task: {e}")
             raise APIException("Task was not deleted")
+
+
+class ColumnCreateView(generics.CreateAPIView):
+    queryset = Column.objects.all()
+    serializer_class = ColumnSerializer
+
+    def perform_create(self, serializer):
+        try:
+            column = serializer.save()
+            logger.info(f"Column created: {column}")
+        except Exception as e:
+            logger.error(f"Error during creating column: {e}")
+            raise APIException("Column was not created")
+
+
+class SprintCreateView(generics.CreateAPIView):
+    queryset = Sprint.objects.all()
+    serializer_class = SprintSerializer
+
+    def perform_create(self, serializer):
+        try:
+            sprint = serializer.save()
+            logger.info(f"Sprint created: {sprint}")
+        except Exception as e:
+            logger.error(f"Error during creating sprint: {e}")
+            raise APIException("Sprint was not created")
+
+
+class BoardCreateView(generics.CreateAPIView):
+    queryset = Board.objects.all()
+    serializer_class = BoardSerializer
+
+    def perform_create(self, serializer):
+        try:
+            board = serializer.save()
+            logger.info(f"Board created: {board}")
+        except Exception as e:
+            logger.error(f"Error during creating board: {e}")
+            raise APIException("Board was not created")
+
+
+class GroupCreateView(generics.CreateAPIView):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+
+    def perform_create(self, serializer):
+        try:
+            group = serializer.save()
+            logger.info(f"Group created: {group}")
+        except Exception as e:
+            logger.error(f"Error during creating group: {e}")
+            raise APIException("Group was not created")

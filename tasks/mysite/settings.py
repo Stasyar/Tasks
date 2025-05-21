@@ -139,3 +139,5 @@ LOGGING = {
         "level": "DEBUG",
     },
 }
+
+AUTH_USER_MODEL = 'tasks.CustomUser'

@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from .models import User, Task
+from .models import User, Task, Board, Sprint, Group, Column
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'full_name', 'email', 'created_at']
+        fields = ['id', 'first_name', 'last_name', 'email', 'created_at']
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -24,10 +24,38 @@ class TaskSerializer(serializers.ModelSerializer):
             'created_at',
             'author',
             'assignee',
-            'board_id',
-            'column_id',
-            'sprint_id',
-            'group_id',
+            'board',
+            'column',
+            'sprint',
+            'group',
             'executors',
             'watchers',
         ]
+
+
+class BoardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Board
+        fields = ['id', 'name']
+        read_only_fields = ['id']
+
+
+class SprintSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sprint
+        fields = ['id', 'name', 'start_date', 'end_date']
+        read_only_fields = ['id']
+
+
+class ColumnSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Column
+        fields = ['id', 'name', 'board']
+        read_only_fields = ['id']
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ['id', 'name']
+        read_only_fields = ['id']
