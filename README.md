@@ -1,0 +1,11 @@
+### .env 
+```text
+POSTGRES_DB=db
+POSTGRES_USER=user
+POSTGRES_PASSWORD=password
+```
+
+### Запуск
+```bash
+docker compose up --build
+```
